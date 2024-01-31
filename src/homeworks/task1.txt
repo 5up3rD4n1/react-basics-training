@@ -1,0 +1,7 @@
+1. Create component that can handle a accordion list
+- The component should have a button to open all and collapse all
+- Each of the items of the list should composed of a title text with an plus sign,
+  when the item is clicked the item of the list should expand showing the body of the component,
+  the icon of the title should change to be a minus icon
+  when the title is clicked again the body of the component should collapse
+
