@@ -186,11 +186,25 @@ const array2 = [
   ["name", "Item 1"],
   ["category", "Cat-1"],
   ["value", 1000],
+  ["age", 20],
 ];
 
 function transformIntoObject(array) {
   // In the reduce method you need the acc and the array with the key and the value('cause thats what we need to change). Spread the acc and add a key with the value ex: name = key and "Item 1" = value
-  return array.reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+  // {}, [name, "Item 1"]
+  // {name: "Item 1"}, ["category", "Cat-1"]
+
+  // function (props) : {id: string; name: string}
+  // function ({id, name})
+  return array.reduce((acc, [key, value]) => {
+    // const key = item[0];
+    // const value = item[1];
+
+    // key="key", value="value", other="", rest=["", ""] = ["key", "value", "", "", ""]
+    // const [key, value, other, ...rest] = item;
+
+    return { ...acc, [key]: value };
+  }, {});
 }
 console.log("====================== array into object");
 console.log(transformIntoObject(array2));
