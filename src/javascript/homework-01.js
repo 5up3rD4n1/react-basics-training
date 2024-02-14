@@ -102,7 +102,7 @@ const phrase = ["Cannibal", "class", "killing", "the", "son"];
 function concatenateArrStrings(array) {
   return array.reduce((acc, str) => {
     return `${acc} ${str}`;
-  }, []);
+  }, "");
 }
 
 console.log("============== reduce concatenate str =============");
@@ -260,10 +260,13 @@ console.log(convertToProperties(countries));
 const averageNums = [20, 30, 40, 50, 60, 70, 80, 90, 100]; // 60
 
 function calcAverage(arr) {
-  return arr.reduce((acc, num) => {
-    const sum = arr.length;
-    return acc + num / sum;
-  }, 0);
+  const length = arr.length;
+
+  return (
+    arr.reduce((acc, num) => {
+      return acc + num;
+    }, 0) / length
+  );
 }
 
 // Option #2 forEach Method
@@ -274,6 +277,7 @@ function filterGreater(arr) {
   arr.forEach((num) => {
     sum += num;
   });
+
   const average = sum / arr.length;
 
   return average;
@@ -301,14 +305,12 @@ console.log(average2(averageNums));
 const avgNums = [45, 52, 79, 25, 15, 28, 7, 6]; // 32.125
 
 function average(arr) {
-  return arr.filter(
-    (num) =>
-      num >
-      arr.reduce((acc, num) => {
-        const sum = arr.length;
-        return acc + num / sum;
-      }, 0)
-  );
+  const avg = arr.reduce((acc, num) => {
+    const sum = arr.length;
+    return acc + num / sum;
+  }, 0);
+
+  return arr.filter((num) => num > avg);
 }
 
 console.log("============== filter greater than  =============");
@@ -339,9 +341,12 @@ const stringArr = [
 ];
 
 function concatenateStringsByCat(arr, separator) {
+  // return arr.join(separator);
+
+  //" adasdasd, asdsa, asd, asd, asd, asd,"
   return arr.reduce((acc, str) => {
-    return `${acc}  ${str}${separator}`;
-  }, []); // join("") doesn't work
+    return `${acc}${separator}${str}`;
+  }); // join("") doesn't work
 }
 
 console.log("============== concatenate strings =============");
@@ -350,6 +355,7 @@ console.log(concatenateStringsByCat(stringArr, ","));
 // "Use filter to get only elements that start with a specific letter from an array of strings."
 
 function filterByFirstLetter(arr) {
+  // string.at(0)
   return arr.filter((string) => string[0] === "G");
 }
 
@@ -454,4 +460,3 @@ console.log(findMax(arrMax));
 // }
 
 // console.log(reverseStr(str));
-
