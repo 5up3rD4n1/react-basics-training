@@ -103,8 +103,56 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and
  * 
  Scope and Closure:
 ○ What is block scope and how is it different from function scope?
+
+
+
+Block scope (curly brackets): declare variables in the block scope wich means variable only exist within the corresponding block.
+
+
+Function Scope:  it is the scope inside a function. For example the var variable key gets a fn scope (has global scope) can be access inside the fn. Var can be re-declared and re-initialized.
+
+On the other side, const and let variables are block scope and can be visible and be access just inside the piece of code they were declare / define. You can't access let or const variables in the fn scope because their blocked. let can only be re-initialize
+const can't be re-declare or re-initialized
+
 ○ How does closure help with encapsulation in JavaScript?
+
+closure is a fn having access to the scope of its parent fn after the parent fn has returned. In this way we create private variables and fn in order to encapsulate.
+
+const myCounter = (function() {
+let _counter = 0;
+
+function increase(){
+  return _counter++;
+}
+
+function decrease(){
+  return _counter--;
+}
+
+function value(){
+  return _counter;
+}
+
+return {
+  increase,
+  decrease,
+  value
+}
+})();
+ 
+myCounter.value()
+myCounter.increase()
+myCounter.value()
+myCounter.increase()
+myCounter.increase()
+myCounter.value()
+myCounter.decrease()
+myCounter.value()
+
+
 ○ Explain the concept of lexical scope.
+
+the place in which the variable was declare/created, means definition space not invocation space
 
 
 // scope and uses this scope variable
@@ -116,10 +164,26 @@ function () {
 const () => {
 
 }
+
  */
 
-/**
+// Block Scope
+function scope() {
+  if (true) {
+    var heroOne = "Iron Man"; // general scope
+    const heroTwo = "Superman"; // block scope
+    let heroThree = "Batman"; // block scope
+    console.log(heroOne);
+  }
 
+  console.log(heroOne); // "Iron Man"
+  // console.log(heroTwo); heroTwo is not defined
+  //console.log(heroThree); // hereThree is not defined
+}
+
+scope();
+
+/**
 Asynchronous JavaScript:
 ○ What is the difference between synchronous and asynchronous code?
 
@@ -160,6 +224,4 @@ async function MyAsyncFunction() {
   return "" => primitivo o complejo (class, object, arr)
 
 } => wraps whatever the function retuns into a new Promise<any> => Promise<string>
-
-
 */

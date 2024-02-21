@@ -180,14 +180,57 @@ function groupByIdentifiers(arr) {
   return arr.reduce((acc, item) => {
     let key = `${item.storeId}~${item.productId}`;
 
+    // acc = {}, => undefined
+    // acc['store-1~product-1'] => {..., amount: 3}
+    //
+
+    /**
+     { 'store-1~product-1' : {
+         storeId: "store-1",
+         productId: "product-1",
+         amount: 3,
+       }
+     }
+  
+     ----
+  {
+    storeId: "store-1",
+    productId: "product-1",
+    amount: 7,
+  },
+
+     */
+
+    // if (acc[key]) {
+    //   const value = acc[key];
+
+    //   return {
+    //     ...acc,
+    //     [key]: {
+    //       ...value,
+    //       amount: value.amount + item.amount,
+    //     }
+    //   }
+    // }
+
+    // return {
+    //   ...acc,
+    //   [key]: item,
+    // }
+
+    // console.log({ acc, item });
+
     return {
       ...acc,
-      [key]: acc[key] ? [...acc[key], item] : [item],
+      // ...(item.amount = acc.amount + item.amount),
+      [key]: acc[key]
+        ? { ...acc[key], amount: acc[key].amount + item.amount }
+        : item,
     };
   }, {});
 }
 
-console.log("============= groupByIdentifiers ==============");
+console.log("============= groupByIdentifiers =============="); // PENDING
 console.log(groupByIdentifiers(products2));
 
 // Solve the following statements using loops and its equivalent using array methods (sort, map, find, filter, reduce)
@@ -330,28 +373,33 @@ console.log(concatenateString(str));
 
 // 6.  checks if all elements in an array are unique.=> boolean
 
-const unique = [1234, 44323, 77282, 2332, 1212, 44323];
-function uniqueElement(arr) {
-  let acc = 0;
+const unique = [1234, 44323, 77282, 2332, 1212, 1234];
+function uniqueElementFor(arr) {
+  let acc = false;
 
   for (let i = 0; i < arr.length; i++) {
     const num = arr[i];
-
-    acc = num;
+    if (acc !== num) {
+      return true;
+    }
   }
   return acc;
 }
 
-console.log("============= unique element =============="); // PENDING
-console.log(uniqueElement(unique));
+console.log("============= unique element For==============");
+console.log(uniqueElementFor(unique));
 
 function uniqueElem(arr) {
   return arr.reduce((acc, num) => {
-    return acc.includes(num);
-  }, []);
+    return acc !== num ? true : false;
+  }, false);
+  // return arr.reduce((acc, num) => {
+  //   return acc === num;
+  // }, []);
 }
 console.log("============= unique element filter==============");
-// console.log(uniqueElem(unique));
+
+console.log(uniqueElem(unique));
 
 // 7.  1 ["hello", "yes", "is"] => [4, 3, 2]
 
@@ -363,8 +411,7 @@ function stringIntoLength(arr) {
   for (let i = 0; i < arr.length; i++) {
     let char = arr[i];
 
-    // acc = [...acc, char.length]
-    acc[char] = char.length;
+    acc = [...acc, char.length];
   }
   return acc;
 }
@@ -372,10 +419,12 @@ console.log("============= string length for ==============");
 console.log(stringIntoLength(strings));
 
 function stringLength(arr) {
-  return arr.reduce((acc, string) => {
-    return [...acc, string.length];
-  }, []);
+  return arr.map((str) => str.length);
+  // return arr.reduce((acc, string) => {
+  //   return [...acc, string.length];
+  // }, []);
 }
+console.log("============ string length =============");
 console.log(stringLength(strings));
 // 8.  filters out all even numbers from an array.
 
@@ -478,7 +527,7 @@ function findIndexFn(arr, word) {
 console.log("================= finde index ============");
 console.log(findIndexFn(indexArr, "soon"));
 
-// 12. rotates the elements of an array to the right by a given number of positions. // ?????
+// 12. rotates the elements of an array to the right by a given number of positions.
 
 const elements = [2, 34, 232, 923, 33, 43];
 
@@ -507,25 +556,256 @@ function rotateElem(arr, n) {
 console.log("================ rotate Element =============");
 console.log(rotateElem(elements, 4));
 
-// function rotateElement(arr) {
-//   return;
-// }
+function rotateElement(arr, n) {
+  return arr.map((num, i) => {
+    const shifts = arr.length - (n % arr.length);
+    const index = (shifts + i) % arr.length;
+    const numX = arr[index];
+    const result = (num = numX);
 
-// console.log(rotateElement(elements)); //PENDING
+    return result;
+  });
+}
+
+console.log(rotateElement(elements, 4));
 
 // 13. sorts an array of objects based on a specified property. [{name: '', cat: '', size: 3}, {name: '', cat: '', size: 1}] => sort by size [{size: 1}, {size:3}]=> leave this execise as the last one
 // 14. groups objects in an array based on a common property. // group by
+
+const properties = [
+  {
+    name: "Elem 01",
+    from: { country: "CR", city: "SJ" },
+    price: 1000,
+  },
+  {
+    name: "Elem 02",
+    from: { country: "IND", city: "I" },
+    price: 1000,
+  },
+  {
+    name: "Elem 03",
+    from: { country: "KOR", city: "S" },
+    price: 100,
+  },
+  {
+    name: "Elem 04",
+    from: { country: "IND", city: "I" },
+    price: 500,
+  },
+  {
+    name: "Elem 05",
+    price: 1000,
+    from: { country: "CR", city: "SJ" },
+  },
+];
+
+function groupByCat(arr) {
+  let acc = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    acc = {
+      ...acc,
+      [item.from.country]: [...(acc[item.from.country] || []), item],
+    };
+  }
+  return acc;
+}
+console.log("================= group By Cat ===========");
+console.log(groupByCat(properties));
+
+function gourpByProperty(arr) {
+  return arr.reduce((acc, item) => {
+    return {
+      ...acc,
+      [item.from.country]: [...(acc[item.from.country] || []), item],
+    };
+  }, {});
+}
+
+console.log("================= group By Property ===========");
+console.log(gourpByProperty(properties));
+
 // 15. finds the intersection of two arrays. [1, 2, 4, 5] => [1, 5, 7] => [1, 5]
+
+const inter01 = [2, 54, 67, 88, 12, 7];
+
+const inter02 = [33, 2, 88];
+
+function findIntersection(arr1, arr2) {
+  let acc = [];
+
+  for (let i = 0; i < arr1.length; i++) {
+    const num = arr1[i];
+
+    if (arr2.includes(num)) {
+      acc.push(num);
+    }
+  }
+  return acc;
+}
+
+console.log("========= intersection ==========");
+console.log(findIntersection(inter01, inter02));
+
+function intersectionArr(arr01, arr02) {
+  return arr01.filter((num) => arr02.includes(num));
+}
+console.log(intersectionArr(inter01, inter02));
 // 16. transforms an array of objects by applying a given function to each object. //map => transform receives fn as parameter
+
+function isExpensive(item) {
+  return item.filter((category) => category === item.price);
+}
+
+function transformObj(arr, fn) {}
+
+console.log(transformObj(properties, isExpensive)); // PEMDING
+
 // 17. converts an array of key-value pairs into an object.
 // [['value', 1000], ['name', 'Item 1'], ['category', 'Cat-1']] => {name: 'Item 1', category: 'Cat-1', value: 1000}
 
-// 18. removes all elements from an array that satisfy a given condition.
-// 19. calculates the sum of values for a specific property in an array of objects.
-// 20. finds the most common element in an array.
+const arrKVP = [
+  ["name", "Joe"],
+  ["age", 22],
+  ["gender", "M"],
+];
 
-// const common = [2, 4, 3, 3, 5, 3, 2, 1, 7];
-// function findCommon(arr) {
-//   return arr.reduce((acc, num) => {}, []);
-// }
-// console.log(findCommon(common));
+function arrayIntoObj(arr) {
+  return arr.reduce((acc, [key, value]) => {
+    return { ...acc, [key]: value };
+  }, {});
+}
+console.log("============== transformObj ==============");
+console.log(arrayIntoObj(arrKVP));
+
+// 18. removes all elements from an array that satisfy a given condition.
+const ages = [8, 18, 22, 43, 2, 20];
+function underAge(arr) {
+  let acc = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    const num = arr[i];
+
+    acc = num < 18 ? [...acc, num] : acc;
+  }
+  return acc;
+}
+
+console.log("============== remove under age==============");
+console.log(underAge(ages));
+
+function removeUnderAge(arr) {
+  return arr.filter((age) => age < 18);
+}
+
+console.log(removeUnderAge(ages));
+
+// 19. calculates the sum of values for a specific property in an array of objects.
+
+function sumByProperty(arr) {
+  return arr.reduce(
+    (acc, item) => {
+      return {
+        ...acc,
+
+        price: acc.price + item.price,
+      };
+    },
+    { price: 0 }
+  );
+}
+
+console.log("============== sum By Property ==============");
+console.log(sumByProperty(properties));
+
+function sumValueByProperty(arr) {
+  let acc = { price: 0 };
+
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+
+    acc = { ...acc, price: acc.price + item.price };
+  }
+  return acc;
+}
+
+console.log(sumValueByProperty(properties));
+
+// 20. finds the most common element in an array. // PENDING
+
+const common = [2, 4, 3, 3, 5, 3, 2, 1, 7];
+function findCommon(arr) {
+  let acc = 0;
+  let num = 1;
+  let elem;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i; j < arr.length; j++) {
+      // Check if the current item matches with another item in the array
+      if (arr[i] === arr[j]) {
+        acc++;
+        // Update the most frequent item and its frequency if the current item's frequency is higher
+        if (acc > num) {
+          num = acc;
+          elem = arr[i];
+        }
+      }
+    }
+    acc = 0;
+  }
+  return elem;
+}
+
+function findCommon2(arr) {
+  const acc = {}; // {1: 1, 2: 3, 3: 3 };
+
+  let elem = undefined;
+  let max = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    const num = arr[i];
+
+    // {}[2] => (undefined || 0) + 1
+    // value <== 0 + 1 = 1
+    const count = (acc[num] || 0) + 1;
+
+    if (count > max) {
+      elem = num;
+      max = count;
+    }
+
+    acc[num] = count;
+  }
+
+  return {
+    elem,
+    max,
+  };
+}
+
+console.log("============ findCommon ==============");
+console.log(findCommon(common));
+
+function findCommonElem(arr) {
+  let elem;
+  let max = 0;
+
+  // {1: 1, 2: 3, 4: 1}
+  arr.reduce((acc, num) => {
+    const count = (acc[num] || 0) + 1;
+
+    if (count > max) {
+      elem = num;
+      max = count;
+    }
+
+    return { ...acc, [num]: count };
+  }, {});
+
+  return elem;
+}
+
+console.log("================ find common elem");
+console.log(findCommonElem(common));
