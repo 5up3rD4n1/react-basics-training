@@ -2,5 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  projects: ['tsconfig.json'],
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: ['src/**/*.ts'],
+  coverageReporters: ['html', 'text'],
 };
