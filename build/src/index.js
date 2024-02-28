@@ -1,10 +1,10 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.doSomeStuff = void 0;
 console.log('Try npm run lint/fix!');
-var longString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
-var trailing = 'Semicolon';
-var why = 'am I tabbed?';
+const longString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+const trailing = 'Semicolon';
+const why = 'am I tabbed?';
 function doSomeStuff(withThis, andThat, andThose) {
     //function on one line
     if (!andThose.length) {
@@ -17,3 +17,4 @@ function doSomeStuff(withThis, andThat, andThose) {
 }
 exports.doSomeStuff = doSomeStuff;
 // TODO: more examples
+//# sourceMappingURL=index.js.map
