@@ -116,7 +116,7 @@ async function main() {
     "id-04"
   );
 
-  await deleteProduct({ id: "id-1", name: "user-name-1", age: 90 });
+  // await deleteProduct({ id: "id-1", name: "user-name-1", age: 90 }, "id-1");
 }
 
 main();

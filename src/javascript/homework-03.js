@@ -167,119 +167,102 @@ const products2 = [
     storeId: "store-2",
     productId: "product-1",
     userId: "user-2",
-    amount: 5,
     discount: [10, 2, 4],
   },
   {
     storeId: "store-1",
     productId: "product-1",
     userId: "user-1",
-    amount: 7,
     discount: [1, 2, 40],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-2",
-    amount: 1,
     discount: [11, 2, 4],
   },
   {
     storeId: "store-3",
     productId: "product-1",
     userId: "user-2",
-    amount: 2,
     discount: [1, 22, 4],
   },
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-1",
-    amount: 9,
     discount: [1, 25, 4],
   },
   {
     storeId: "store-3",
     productId: "product-1",
     userId: "user-3",
-    amount: 5,
     discount: [1, 2, 41],
   },
   {
     storeId: "store-2",
     productId: "product-3",
     userId: "user-1",
-    amount: 6,
     discount: [19, 2, 4],
   },
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-2",
-    amount: 3,
     discount: [1, 2, 14],
   },
   {
     storeId: "store-1",
     productId: "product-1",
     userId: "user-1",
-    amount: 3,
     discount: [1, 26, 4],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}]
   {
     storeId: "store-2",
     productId: "product-1",
     userId: "user-3",
-    amount: 5,
     discount: [1, 2, 54],
   },
   {
     storeId: "store-1",
     productId: "product-1",
     userId: "user-3",
-    amount: 7,
     discount: [1, 28, 4],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-1",
-    amount: 1,
     discount: [19, 2, 4],
   },
   {
     storeId: "store-3",
     productId: "product-1",
     userId: "user-1",
-    amount: 2,
     discount: [1, 62, 4],
   },
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-2",
-    amount: 9,
     discount: [71, 2, 4],
   },
   {
     storeId: "store-3",
     productId: "product-1",
     userId: "user-2",
-    amount: 5,
     discount: [1, 12, 4],
   },
   {
     storeId: "store-2",
     productId: "product-3",
     userId: "user-1",
-    amount: 6,
     discount: [1, 42, 4],
   },
   {
     storeId: "store-2",
     productId: "product-2",
     userId: "user-3",
-    amount: 3,
     discount: [1, 52, 4],
   },
 ];
@@ -331,6 +314,27 @@ function highestDiscount(arr) {
 
 console.log(highestDiscount(products2));
 
+function highestDiscountFor(arr) {
+  let acc = {};
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    let key = `${obj.storeId}~${obj.productId}~${obj.userId}`;
+    const elem = acc[key];
+
+    if (elem) {
+      acc[key] = {
+        ...obj,
+        discount: findMax([...obj.discount, elem.discount]),
+      };
+    } else {
+      acc[key] = { ...obj, discount: findMax(obj.discount) };
+    }
+  }
+  return acc;
+}
+console.log("========= highest discount for=============");
+console.log(highestDiscountFor(products2));
+
 // Return and object with all discounts available for the combination of store, product and user
 
 function mergeDiscount(arr) {
@@ -354,7 +358,27 @@ function mergeDiscount(arr) {
     return acc;
   }, {});
 }
+
+console.log("============= merge discount =============");
 console.log(mergeDiscount(products2));
+
+function mergeDiscountFor(arr) {
+  let acc = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    let key = `${obj.storeId}~${obj.productId}~${obj.userId}`;
+    const elem = acc[key];
+
+    elem
+      ? (acc[key] = { ...obj, discount: [...obj.discount, ...elem.discount] })
+      : (acc[key] = obj);
+  }
+  return acc;
+}
+
+console.log("=========== merge discount for ================");
+console.log(mergeDiscountFor(products2));
 
 // Sum all discounts for combination store,
 // product, user => {'': {store, product, user, discount: 250}}
@@ -381,7 +405,31 @@ function sumDiscount(arr) {
   }, {});
 }
 
+console.log(" ============ sum discount ============");
 console.log(sumDiscount(products2));
+
+function sumDiscountFor(arr) {
+  let acc = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    let key = `${obj.storeId}~${obj.productId}~${obj.userId}`;
+    const elem = acc[key];
+    const sum = obj.discount.reduce((sum, num) => sum + num);
+
+    if (elem) {
+      acc[key] = {
+        ...obj,
+        discount: sum + elem.discount,
+      };
+    } else {
+      acc[key] = { ...obj, discount: sum };
+    }
+  }
+  return acc;
+}
+console.log("============    sum Discount for ===============");
+console.log(sumDiscountFor(products2));
 
 // Assuming all products discounts have always the same length, sum all the discounts in the same position of the array
 // say you have 3 products with the following discounts
@@ -407,19 +455,94 @@ console.log(sumDiscount(products2));
 //    'store-2~product-2~user-1': { ... }
 // }
 
+function sum(arr) {
+  arr.reduce((sum, num, i) => sum + num[i]);
+}
+
+// the assumption is that both arrays the same length
+function mergeArrByPosition(arr1, arr2) {
+  let length = arr1.length;
+  let current = [];
+
+  for (let i = 0; i < length; i++) {
+    const a = arr1[i];
+    const b = arr2[i];
+
+    current.push(a + b);
+  }
+  return current;
+}
+
+function mergeArrByPositionMap(arr1, arr2) {
+  return arr1.map((num, i) => {
+    return arr2[i] + num;
+  });
+}
+
+function sumDiscountByPosition(arr) {
+  let acc = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    let key = `${obj.storeId}~${obj.productId}~${obj.userId}`;
+
+    const elem = acc[key]; // {storeId: "", productId: "", amount: 3, discount: [1, 2, 5]}
+
+    acc[key] = elem
+      ? {
+          ...elem,
+          discount: mergeArrByPositionMap(elem.discount, obj.discount),
+        }
+      : obj;
+
+    // return {
+    //   ...acc,
+    //   [key]: elem ? [...elem, ...current] : [...current],
+    // };
+
+    // acc = current.push({
+    //   ...acc,
+    //   [key]: elem ? [...elem, ...current] : [...current],
+    // });
+  }
+
+  return acc;
+}
+console.log("============== sumDiscountByPosition ==========");
+console.log(sumDiscountByPosition(products2));
+
 // 2. Create a function that multiplies/generates and accumulates products in an array for the combination of storeId and productId,
 //    the end result is an object where the keys are the composite key of storeId and productId and the value is the array with all generated products
 // => amount = 3 => [{},{},{}]
 // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
 
 function generateProductsObj(arr) {
-  let acc = [];
+  let acc = {};
 
   for (let i = 0; i < arr.length; i++) {
-    const item = arr[i];
+    const product = arr[i]; // {obj 1} {obj 2} ...
+    const current = [];
 
-    acc = item;
+    let key = `${product.storeId}~${product.productId}`; // key = ['store-1~product-1']
+    const products = acc[key]; // {storeId: "", productId: "", amount: 3} each value of that specific key
+
+    for (let i = product.amount; i > 0; i--) {
+      current.push(product); // push the obj into the new array
+    }
+
+    acc[key] = products ? [...products, ...current] : [...current];
+
+    // return {
+    //   ...acc,
+    //   [key]: products ? [...products, ...current] : [...current],
+    // };
+
+    // return new Array(products.length).fill({
+    //   ...generated,
+    //   [key]: products ? [...products, ...generated] : [...generated],
+    // });
   }
+
   return acc;
 }
 
