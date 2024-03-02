@@ -1,47 +1,47 @@
 const products1 = [
   {
-    storeId: "store-1",
-    productId: "product-1",
+    storeId: 'store-1',
+    productId: 'product-1',
     amount: 3,
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}]
   {
-    storeId: "store-2",
-    productId: "product-1",
+    storeId: 'store-2',
+    productId: 'product-1',
     amount: 5,
   },
   {
-    storeId: "store-1",
-    productId: "product-1",
+    storeId: 'store-1',
+    productId: 'product-1',
     amount: 7,
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
   {
-    storeId: "store-2",
-    productId: "product-2",
+    storeId: 'store-2',
+    productId: 'product-2',
     amount: 1,
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
+    storeId: 'store-3',
+    productId: 'product-1',
     amount: 2,
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
+    storeId: 'store-2',
+    productId: 'product-2',
     amount: 9,
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
+    storeId: 'store-3',
+    productId: 'product-1',
     amount: 5,
   },
   {
-    storeId: "store-2",
-    productId: "product-3",
+    storeId: 'store-2',
+    productId: 'product-3',
     amount: 6,
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
+    storeId: 'store-2',
+    productId: 'product-2',
     amount: 3,
   },
 ];
@@ -62,15 +62,15 @@ const products1 = [
 
 const obj1 = {
   hello: 1,
-  "product-1": {
+  'product-1': {
     product: 1,
     value: 2,
   },
-  "product-2": {
+  'product-2': {
     product: 2,
     value: 3,
   },
-  "{abc: 1}": {
+  '{abc: 1}': {
     amount: 1,
   },
 };
@@ -117,7 +117,7 @@ function productsHighestAmount(arr) {
   return acc;
 }
 
-console.log("============ product highest amount =========");
+console.log('============ product highest amount =========');
 console.log(productsHighestAmount(products1));
 
 function highestAmountObj(arr) {
@@ -153,116 +153,116 @@ function highestAmountObj(arr) {
   }, {});
 }
 
-console.log("========= highest amount obj");
+console.log('========= highest amount obj');
 console.log(highestAmountObj(products1));
 
 const products2 = [
   {
-    storeId: "store-1",
-    productId: "product-1",
-    userId: "user-1",
+    storeId: 'store-1',
+    productId: 'product-1',
+    userId: 'user-1',
     discount: [1, 20, 4],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}]
   {
-    storeId: "store-2",
-    productId: "product-1",
-    userId: "user-2",
+    storeId: 'store-2',
+    productId: 'product-1',
+    userId: 'user-2',
     discount: [10, 2, 4],
   },
   {
-    storeId: "store-1",
-    productId: "product-1",
-    userId: "user-1",
+    storeId: 'store-1',
+    productId: 'product-1',
+    userId: 'user-1',
     discount: [1, 2, 40],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-2",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-2',
     discount: [11, 2, 4],
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
-    userId: "user-2",
+    storeId: 'store-3',
+    productId: 'product-1',
+    userId: 'user-2',
     discount: [1, 22, 4],
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-1",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-1',
     discount: [1, 25, 4],
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
-    userId: "user-3",
+    storeId: 'store-3',
+    productId: 'product-1',
+    userId: 'user-3',
     discount: [1, 2, 41],
   },
   {
-    storeId: "store-2",
-    productId: "product-3",
-    userId: "user-1",
+    storeId: 'store-2',
+    productId: 'product-3',
+    userId: 'user-1',
     discount: [19, 2, 4],
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-2",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-2',
     discount: [1, 2, 14],
   },
   {
-    storeId: "store-1",
-    productId: "product-1",
-    userId: "user-1",
+    storeId: 'store-1',
+    productId: 'product-1',
+    userId: 'user-1',
     discount: [1, 26, 4],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}]
   {
-    storeId: "store-2",
-    productId: "product-1",
-    userId: "user-3",
+    storeId: 'store-2',
+    productId: 'product-1',
+    userId: 'user-3',
     discount: [1, 2, 54],
   },
   {
-    storeId: "store-1",
-    productId: "product-1",
-    userId: "user-3",
+    storeId: 'store-1',
+    productId: 'product-1',
+    userId: 'user-3',
     discount: [1, 28, 4],
   }, // => [{storeId: '', productId: ''}, {storeId: '', productId: ''}, {storeId: '', productId: ''}, ...7 more]
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-1",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-1',
     discount: [19, 2, 4],
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
-    userId: "user-1",
+    storeId: 'store-3',
+    productId: 'product-1',
+    userId: 'user-1',
     discount: [1, 62, 4],
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-2",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-2',
     discount: [71, 2, 4],
   },
   {
-    storeId: "store-3",
-    productId: "product-1",
-    userId: "user-2",
+    storeId: 'store-3',
+    productId: 'product-1',
+    userId: 'user-2',
     discount: [1, 12, 4],
   },
   {
-    storeId: "store-2",
-    productId: "product-3",
-    userId: "user-1",
+    storeId: 'store-2',
+    productId: 'product-3',
+    userId: 'user-1',
     discount: [1, 42, 4],
   },
   {
-    storeId: "store-2",
-    productId: "product-2",
-    userId: "user-3",
+    storeId: 'store-2',
+    productId: 'product-2',
+    userId: 'user-3',
     discount: [1, 52, 4],
   },
 ];
@@ -296,7 +296,7 @@ function highestDiscount(arr) {
         discount: findMax([...obj.discount, elem.discount]),
       };
     } else {
-      acc[key] = { ...obj, discount: findMax(obj.discount) };
+      acc[key] = {...obj, discount: findMax(obj.discount)};
     }
 
     // return {
@@ -327,12 +327,12 @@ function highestDiscountFor(arr) {
         discount: findMax([...obj.discount, elem.discount]),
       };
     } else {
-      acc[key] = { ...obj, discount: findMax(obj.discount) };
+      acc[key] = {...obj, discount: findMax(obj.discount)};
     }
   }
   return acc;
 }
-console.log("========= highest discount for=============");
+console.log('========= highest discount for=============');
 console.log(highestDiscountFor(products2));
 
 // Return and object with all discounts available for the combination of store, product and user
@@ -343,7 +343,7 @@ function mergeDiscount(arr) {
     const elem = acc[key];
 
     if (elem) {
-      acc[key] = { ...obj, discount: [...obj.discount, ...elem.discount] };
+      acc[key] = {...obj, discount: [...obj.discount, ...elem.discount]};
     } else {
       acc[key] = obj;
     }
@@ -359,7 +359,7 @@ function mergeDiscount(arr) {
   }, {});
 }
 
-console.log("============= merge discount =============");
+console.log('============= merge discount =============');
 console.log(mergeDiscount(products2));
 
 function mergeDiscountFor(arr) {
@@ -371,13 +371,13 @@ function mergeDiscountFor(arr) {
     const elem = acc[key];
 
     elem
-      ? (acc[key] = { ...obj, discount: [...obj.discount, ...elem.discount] })
+      ? (acc[key] = {...obj, discount: [...obj.discount, ...elem.discount]})
       : (acc[key] = obj);
   }
   return acc;
 }
 
-console.log("=========== merge discount for ================");
+console.log('=========== merge discount for ================');
 console.log(mergeDiscountFor(products2));
 
 // Sum all discounts for combination store,
@@ -405,7 +405,7 @@ function sumDiscount(arr) {
   }, {});
 }
 
-console.log(" ============ sum discount ============");
+console.log(' ============ sum discount ============');
 console.log(sumDiscount(products2));
 
 function sumDiscountFor(arr) {
@@ -423,12 +423,12 @@ function sumDiscountFor(arr) {
         discount: sum + elem.discount,
       };
     } else {
-      acc[key] = { ...obj, discount: sum };
+      acc[key] = {...obj, discount: sum};
     }
   }
   return acc;
 }
-console.log("============    sum Discount for ===============");
+console.log('============    sum Discount for ===============');
 console.log(sumDiscountFor(products2));
 
 // Assuming all products discounts have always the same length, sum all the discounts in the same position of the array
@@ -508,7 +508,7 @@ function sumDiscountByPosition(arr) {
 
   return acc;
 }
-console.log("============== sumDiscountByPosition ==========");
+console.log('============== sumDiscountByPosition ==========');
 console.log(sumDiscountByPosition(products2));
 
 // 2. Create a function that multiplies/generates and accumulates products in an array for the combination of storeId and productId,
@@ -546,7 +546,7 @@ function generateProductsObj(arr) {
   return acc;
 }
 
-console.log("======== products obj =========");
+console.log('======== products obj =========');
 console.log(generateProductsObj(products1));
 
 function generateObjByLength(arr) {
@@ -599,5 +599,5 @@ function generateObjByLength(arr) {
 //   }, [])
 //   .map((item) => item.amount.length);
 
-console.log("========== by length ========");
+console.log('========== by length ========');
 console.log(generateObjByLength(products1));

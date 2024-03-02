@@ -1,3 +1,4 @@
+import exp = require('constants');
 import {
   sum,
   textToRGB,
