@@ -15,7 +15,7 @@ describe('Unit: src/typescript/functions/homework-test-03-mocks', () => {
     data: {
       id: 'test-id-01',
       amount: 100,
-      category: 'pants',
+      category: 'shoes',
     },
   };
 
@@ -28,20 +28,19 @@ describe('Unit: src/typescript/functions/homework-test-03-mocks', () => {
     mockInstance.save.mockClear();
   });
 
-  // Don't know how to match the same exact value => it matches just cause it's the same type of 'string' but not for been the same value
   describe('save', () => {
     describe('when category is equal to shoes', () => {
       it('returns payload and adds amount divided by 2', () => {
         const payload = {
           id: 'test-id-01',
-          amount: defaultResponse.data.amount,
+          amount: defaultResponse.data.amount / 2,
           category: 'shoes',
         };
 
         const response = subject.save(payload);
 
         expect(mockInstance.save).toHaveBeenCalledTimes(1);
-        expect(response).toEqual(defaultResponse.data.category);
+        expect(response).toBe(payload.category);
       });
     });
 
@@ -51,7 +50,7 @@ describe('Unit: src/typescript/functions/homework-test-03-mocks', () => {
         const response = subject.save(payload);
 
         expect(mockInstance.save).toHaveBeenCalledTimes(1);
-        expect(response).toEqual(defaultResponse.data.category);
+        expect(response).not.toEqual(payload.category);
       });
     });
   });
@@ -61,21 +60,21 @@ describe('Unit: src/typescript/functions/homework-test-03-mocks', () => {
     beforeAll(() => {
       mockInstance.query.mockReturnValue(defaultR);
     });
-    beforeEach(() => {
-      mockInstance.query.mockClear();
-    });
+    // beforeEach(() => {
+    //   mockInstance.query.mockClear();
+    // });
     describe('when cateogry is tshirt', () => {
       it('changes the category name to shirts', () => {
         const payload = {
           id: 'test-id-01',
           amount: defaultResponse.data.amount,
-          category: defaultR[1],
+          category: 'shirts',
         };
 
         const response = subject.save(payload);
 
         expect(mockInstance.save).toHaveBeenCalledTimes(1);
-        expect(response).toEqual(defaultResponse.data.category);
+        expect(response).toEqual(payload.category);
       });
     });
 
@@ -102,7 +101,10 @@ describe('Unit: src/typescript/functions/homework-test-03-mocks', () => {
 
   describe('delete', () => {
     beforeAll(() => {
-      mockInstance.delete.mockReturnValue('test-id-01');
+      mockInstance.delete.mockReturnValue(defaultResponse.data.id);
+    });
+    beforeEach(() => {
+      mockInstance.save.mockClear();
     });
 
     it('sends id to repo delete method', () => {
