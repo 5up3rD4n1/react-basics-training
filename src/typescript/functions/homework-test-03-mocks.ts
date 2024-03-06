@@ -5,12 +5,20 @@ export interface UnitTestRepo {
 }
 
 export class MyUnitTestRepository {
-  constructor(private readonly repo: UnitTestRepo) {}
+  // attributes/properties
+  private readonly repo: UnitTestRepo;
 
+  constructor(repo: UnitTestRepo) {
+    // instance
+    this.repo = repo;
+  }
+
+  // method of a class
   save(payload: Record<string, any>): string {
     // NOTE: someone counted each pair as independent pairs
     if (payload.category === 'shoes') {
-      return this.repo.save({...payload, amount: payload.amout / 2});
+      // this.mockInstance.save => jest.fn => mock;
+      return this.repo.save({...payload, amount: payload.amount / 2});
     }
 
     return this.repo.save(payload);
