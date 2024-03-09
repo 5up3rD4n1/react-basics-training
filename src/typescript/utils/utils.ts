@@ -13,7 +13,7 @@ const mapper: Record<string, string> = {
 };
 
 export function classifier(category: string): string {
-  const mapped = mapper[category];
+  const mapped = mapper[category]; // mapper['footware'] => undefined
 
   if (mapped) {
     return mapped;

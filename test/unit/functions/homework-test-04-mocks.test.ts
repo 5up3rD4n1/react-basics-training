@@ -27,7 +27,7 @@ import {
   processOrder,
   processItem,
 } from '../../../src/typescript/functions/homework-test-04-mocks';
-import multiply from '../../../src/typescript/utils/utils';
+import {multiply} from '../../../src/typescript/utils/utils';
 
 describe('Unit: src/typescript/functions/homework-test-04-mocks', () => {
   describe('processOrder', () => {
@@ -59,10 +59,12 @@ describe('Unit: src/typescript/functions/homework-test-04-mocks', () => {
         expect(response).toEqual(multiplyReturnValue);
       });
     });
-    // PENDING
+
     describe('if category is not hats', () => {
       it('uses add method', () => {
-        const payload = {category: 'hats', amount: 10, price: 5};
+        const payload = {category: 'shoes', amount: 10, price: 5};
+        const price = payload.price;
+        const porcentage = 0.1;
         const response = processOrder(payload);
 
         expect(mockInstance.multiply).toHaveBeenCalledTimes(1);
@@ -70,11 +72,10 @@ describe('Unit: src/typescript/functions/homework-test-04-mocks', () => {
         expect(mockInstance.add).toHaveBeenNthCalledWith(
           1,
           payload.price,
-          multiply(payload.price, 0.1)
+          multiply(price, porcentage)
         );
         expect(response).toEqual(addReturnValue);
       });
-      // homework
     });
   });
 
@@ -93,7 +94,7 @@ describe('Unit: src/typescript/functions/homework-test-04-mocks', () => {
       mockInstance.classifier.mockClear();
     });
 
-    describe('if category is equals to footware', () => {
+    describe('if category is equal to footware', () => {
       beforeAll(() => {
         mockInstance.classifier.mockReturnValue('footware');
       });
@@ -148,7 +149,7 @@ describe('Unit: src/typescript/functions/homework-test-04-mocks', () => {
 
     describe('if category is equals to unknown', () => {
       beforeAll(() => {
-        mockInstance.classifier.mockReturnValue('unknown');
+        mockInstance.classifier.mockReturnValue('unknow');
       });
 
       it('uses classifier method', () => {
